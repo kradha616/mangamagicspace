@@ -96,10 +96,7 @@
 
     <h2>Jujutsu Kaisen - Chapter 1</h2>
 
-    <select id="chapterSelect">
-        <option value="chapter-1">Chapter 1</option>
-    </select>
-
+    
     <br><br>
 
     <img id="mangaImage">
@@ -108,6 +105,7 @@
         <button onclick="prevPage()">⬅ Previous</button>
         <button onclick="nextPage()">Next ➡</button>
         <button onclick="toggleVertical()">Toggle Vertical Mode</button>
+        <select id="chapterSelect"></select>
     </div>
 
     <div class="page-info" id="pageInfo"></div>
@@ -115,87 +113,113 @@
 </div>
 
 <script>
-    let currentPage = 1;
-    let totalPages = 53;
-    let verticalMode = false;
-    const chapter = "chapter-1";
+const urlParams = new URLSearchParams(window.location.search);
+const manga = urlParams.get("manga") || "jujutsu-kaisen";
+const chapter = urlParams.get("chapter") || "chapter-1";
 
-    const imageElement = document.getElementById("mangaImage");
-    const pageInfo = document.getElementById("pageInfo");
-    const controls = document.getElementById("controls");
-    const readerContainer = document.getElementById("readerContainer");
+let totalPages = 53;
+let currentPage = 1;
+let verticalMode = false;
 
-    function updateImage() {
-        imageElement.style.opacity = 0;
+const imageElement = document.getElementById("mangaImage");
+const pageInfo = document.getElementById("pageInfo");
+const controls = document.getElementById("controls");
+const readerContainer = document.getElementById("readerContainer");
 
-        setTimeout(() => {
-            imageElement.src =
-                `manga/jujutsu-kaisen/${chapter}/${currentPage}.jpeg`;
+function updateImage() {
+    imageElement.style.opacity = 0;
 
-            pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
-            imageElement.style.opacity = 1;
-        }, 150);
+    setTimeout(() => {
+        imageElement.src = `manga/${manga}/${chapter}/${currentPage}.jpeg`;
+        pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+        imageElement.style.opacity = 1;
+    }, 150);
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        currentPage++;
+        updateImage();
     }
+}
 
-    function nextPage() {
-        if (currentPage < totalPages) {
-            currentPage++;
-            updateImage();
-        }
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        updateImage();
     }
+}
 
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            updateImage();
-        }
+function toggleVertical() {
+    verticalMode = !verticalMode;
+
+    if (verticalMode) {
+        imageElement.style.display = "none";
+        pageInfo.textContent = "";
+        loadAllPages();
+    } else {
+        const allImages = document.querySelectorAll(".vertical-page");
+        allImages.forEach(img => img.remove());
+
+        imageElement.style.display = "block";
+        updateImage();
     }
+}
 
-    function toggleVertical() {
-        verticalMode = !verticalMode;
-
-        if (verticalMode) {
-            readerContainer.classList.add("vertical-mode");
-            loadAllPages();
-        } else {
-            readerContainer.classList.remove("vertical-mode");
-            imageElement.style.display = "block";
-            updateImage();
-        }
+function loadAllPages() {
+    for (let i = 1; i <= totalPages; i++) {
+        const img = document.createElement("img");
+        img.src = `manga/${manga}/${chapter}/${i}.jpeg`;
+        img.classList.add("vertical-page");
+        readerContainer.appendChild(img);
     }
+}
 
-    function loadAllPages() {
-        readerContainer.innerHTML = "<h2>Jujutsu Kaisen - Chapter 1</h2>";
-
-        for (let i = 1; i <= totalPages; i++) {
-            const img = document.createElement("img");
-            img.src = `manga/jujutsu-kaisen/${chapter}/${i}.jpeg`;
-            readerContainer.appendChild(img);
-        }
+document.addEventListener("keydown", function (e) {
+    if (!verticalMode) {
+        if (e.key === "ArrowRight") nextPage();
+        if (e.key === "ArrowLeft") prevPage();
     }
+});
 
-    document.addEventListener("keydown", function (e) {
-        if (!verticalMode) {
-            if (e.key === "ArrowRight") nextPage();
-            if (e.key === "ArrowLeft") prevPage();
+let hideTimeout;
+
+document.addEventListener("mousemove", function () {
+    controls.classList.remove("hidden");
+
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+        controls.classList.add("hidden");
+    }, 2000);
+});
+
+function populateChapters(totalChapters) {
+    const select = document.getElementById("chapterSelect");
+
+    for (let i = 1; i <= totalChapters; i++) {
+        let option = document.createElement("option");
+        option.value = "chapter-" + i;
+        option.textContent = "Chapter " + i;
+
+        if (option.value === chapter) {
+            option.selected = true;
         }
-    });
 
-    let hideTimeout;
+        select.appendChild(option);
+    }
+}
 
-    document.addEventListener("mousemove", function () {
-        controls.classList.remove("hidden");
+populateChapters(5);
 
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => {
-            controls.classList.add("hidden");
-        }, 2000);
-    });
+document.getElementById("chapterSelect").addEventListener("change", function () {
+    window.location.href = `reader.html?manga=${manga}&chapter=${this.value}`;
+});
 
-    updateImage();
+updateImage();
 </script>
 
 </body>
 </html>
+
 
 
