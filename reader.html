@@ -1,48 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reader - MangaMagicSpace</title>
+    <title>Manga Reader</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-            background-color: #0f172a;
-            color: white;
+        .reader-container {
             text-align: center;
-            padding: 50px;
+            padding: 20px;
         }
 
-        button {
-            padding: 10px 20px;
+        .reader-container img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .controls {
             margin-top: 20px;
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
             background-color: #f97316;
             border: none;
-            color: white;
-            font-weight: bold;
             border-radius: 5px;
-            cursor: pointer;
+            color: white;
+        }
+
+        .controls button:hover {
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-<h1 id="mangaTitle"></h1>
-<p>This is a prototype manga reader page.</p>
+<header>
+    <h1>MangaMagicSpace</h1>
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+</header>
 
-<button onclick="goBack()">Back to Home</button>
+<div class="reader-container">
+    <h2>Jujutsu Kaisen - Chapter 1</h2>
+
+    <img id="mangaImage" src="manga/jujutsu-kaisen/chapter-1/1.jpeg">
+
+    <div class="controls">
+        <button onclick="prevPage()">Previous</button>
+        <button onclick="nextPage()">Next</button>
+    </div>
+</div>
 
 <script>
-const manga = localStorage.getItem("currentManga");
+    let currentPage = 1;
+    const totalPages = 53; // change if needed
 
-if(!manga) {
-    window.location.href = "index.html";
-}
+    function updateImage() {
+        document.getElementById("mangaImage").src =
+            `manga/jujutsu-kaisen/chapter-1/${currentPage}.jpeg`;
+    }
 
-document.getElementById("mangaTitle").innerText = manga;
+    function nextPage() {
+        if (currentPage < totalPages) {
+            currentPage++;
+            updateImage();
+        }
+    }
 
-function goBack() {
-    window.location.href = "index.html";
-}
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            updateImage();
+        }
+    }
 </script>
 
 </body>
