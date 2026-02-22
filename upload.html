@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload - MangaMagicSpace</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        header {
+            background-color: #1e293b;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .container {
+            padding: 40px;
+            text-align: center;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            background-color: #f97316;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .manga-list {
+            margin-top: 30px;
+        }
+
+        .manga-item {
+            background-color: #1e293b;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>MangaMagicSpace</h2>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="history.html">History</a>
+        <a href="upload.html">Upload</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Upload Manga</h2>
+    <input type="text" id="mangaTitle" placeholder="Enter Manga Title">
+    <button onclick="uploadManga()">Upload</button>
+
+    <div class="manga-list" id="mangaList"></div>
+</div>
+
+<script>
+const user = localStorage.getItem("loggedInUser");
+
+// 🔒 Protect page
+if(!user) {
+    alert("Please login first!");
+    window.location.href = "login.html";
+}
+
+// Load existing mangas
+let mangas = JSON.parse(localStorage.getItem("mangas")) || [];
+
+function uploadManga() {
+    const title = document.getElementById("mangaTitle").value;
+
+    if(title === "") {
+        alert("Enter manga title!");
+        return;
+    }
+
+    mangas.push(title);
+    localStorage.setItem("mangas", JSON.stringify(mangas));
+
+    displayMangas();
+    document.getElementById("mangaTitle").value = "";
+}
+
+function displayMangas() {
+    const list = document.getElementById("mangaList");
+    list.innerHTML = "";
+
+    mangas.forEach((manga) => {
+        const div = document.createElement("div");
+        div.className = "manga-item";
+        div.innerText = manga;
+        list.appendChild(div);
+    });
+}
+
+displayMangas();
+</script>
+
+</body>
+</html>

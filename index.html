@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MangaMagicSpace</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: white;
+        }
+
+        header {
+            background-color: #1e293b;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #f97316;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .manga-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .manga-card {
+            background-color: #1e293b;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .manga-card:hover {
+            transform: scale(1.05);
+        }
+
+        .manga-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1e293b;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MangaMagicSpace</h1>
+   <nav>
+    <a href="index.html">Home</a>
+    <a href="upload.html">Upload</a>
+    <a href="login.html">Login</a>
+    <a href="history.html">History</a>
+</nav>
+</header>
+
+<div class="hero">
+    <h2>Read. Upload. Explore Manga.</h2>
+    <p>Your ultimate manga reading experience.</p>
+</div>
+
+<div class="manga-container">
+    <div class="manga-card">
+        <img src="https://via.placeholder.com/150x200" alt="Manga">
+        <h3>Sample Manga 1</h3>
+    </div>
+
+    <div class="manga-card">
+        <img src="https://via.placeholder.com/150x200" alt="Manga">
+        <h3>Sample Manga 2</h3>
+    </div>
+
+    <div class="manga-card">
+        <img src="https://via.placeholder.com/150x200" alt="Manga">
+        <h3>Sample Manga 3</h3>
+    </div>
+</div>
+
+<footer>
+    © 2026 MangaMagicSpace | College Project Prototype
+</footer>
+<script>
+const user = localStorage.getItem("loggedInUser");
+
+// Update Navbar if logged in
+if(user) {
+    const nav = document.querySelector("nav");
+    nav.innerHTML = `
+        <a href="index.html">Home</a>
+        <a href="upload.html">Upload</a>
+        <a href="history.html">History</a>
+        <a href="#" onclick="logout()">Logout (${user})</a>
+    `;
+}
+
+function logout() {
+    localStorage.removeItem("loggedInUser");
+    alert("Logged out successfully!");
+    window.location.href = "index.html";
+}
+
+// Load uploaded mangas
+const mangaContainer = document.querySelector(".manga-container");
+const mangas = JSON.parse(localStorage.getItem("mangas")) || [];
+
+// Clear sample mangas
+mangaContainer.innerHTML = "";
+
+mangas.forEach((manga) => {
+    const div = document.createElement("div");
+    div.className = "manga-card";
+    div.innerHTML = `
+<h3 style="cursor:pointer;" data-title="${manga}">
+${manga}
+</h3>
+`;
+
+div.querySelector("h3").addEventListener("click", function() {
+    openManga(this.dataset.title);
+});
+    mangaContainer.appendChild(div);
+})
+function openManga(title) {
+    localStorage.setItem("currentManga", title);
+
+    // Save to history
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    if(!history.includes(title)) {
+        history.push(title);
+        localStorage.setItem("history", JSON.stringify(history));
+    }
+
+    window.location.href = "reader.html";
+};
+</script>
+</body>
+</html>
