@@ -3,7 +3,33 @@
 <head>
     <title>Manga Reader</title>
     <link rel="stylesheet" href="styles.css">
+
     <style>
+        body {
+            margin: 0;
+            background-color: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #1e293b;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #f97316;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
         .reader-container {
             text-align: center;
             padding: 20px;
@@ -13,16 +39,18 @@
             max-width: 90%;
             height: auto;
             border-radius: 10px;
+            transition: opacity 0.3s ease-in-out;
         }
 
         .controls {
-            margin-top: 20px;
+            margin-top: 15px;
+            transition: opacity 0.5s ease;
         }
 
-        .controls button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
+        .controls button, select {
+            padding: 8px 15px;
+            margin: 5px;
+            font-size: 14px;
             cursor: pointer;
             background-color: #f97316;
             border: none;
@@ -30,8 +58,20 @@
             color: white;
         }
 
-        .controls button:hover {
+        .page-info {
+            margin-top: 10px;
+            font-size: 14px;
             opacity: 0.8;
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .vertical-mode img {
+            display: block;
+            margin: 20px auto;
+            max-width: 800px;
         }
     </style>
 </head>
@@ -44,24 +84,49 @@
     </nav>
 </header>
 
-<div class="reader-container">
+<div class="reader-container" id="readerContainer">
+
     <h2>Jujutsu Kaisen - Chapter 1</h2>
 
-    <img id="mangaImage" src="manga/jujutsu-kaisen/chapter-1/1.jpeg">
+    <select id="chapterSelect">
+        <option value="chapter-1">Chapter 1</option>
+    </select>
 
-    <div class="controls">
-        <button onclick="prevPage()">Previous</button>
-        <button onclick="nextPage()">Next</button>
+    <br><br>
+
+    <img id="mangaImage">
+
+    <div class="controls" id="controls">
+        <button onclick="prevPage()">⬅ Previous</button>
+        <button onclick="nextPage()">Next ➡</button>
+        <button onclick="toggleVertical()">Toggle Vertical Mode</button>
     </div>
+
+    <div class="page-info" id="pageInfo"></div>
+
 </div>
 
 <script>
     let currentPage = 1;
-    const totalPages = 53; // change if needed
+    let totalPages = 53;
+    let verticalMode = false;
+    const chapter = "chapter-1";
+
+    const imageElement = document.getElementById("mangaImage");
+    const pageInfo = document.getElementById("pageInfo");
+    const controls = document.getElementById("controls");
+    const readerContainer = document.getElementById("readerContainer");
 
     function updateImage() {
-        document.getElementById("mangaImage").src =
-            `manga/jujutsu-kaisen/chapter-1/${currentPage}.jpeg`;
+        imageElement.style.opacity = 0;
+
+        setTimeout(() => {
+            imageElement.src =
+                `manga/jujutsu-kaisen/${chapter}/${currentPage}.jpeg`;
+
+            pageInfo.textContent = `Page ${currentPage} / ${totalPages}`;
+            imageElement.style.opacity = 1;
+        }, 150);
     }
 
     function nextPage() {
@@ -77,6 +142,49 @@
             updateImage();
         }
     }
+
+    function toggleVertical() {
+        verticalMode = !verticalMode;
+
+        if (verticalMode) {
+            readerContainer.classList.add("vertical-mode");
+            loadAllPages();
+        } else {
+            readerContainer.classList.remove("vertical-mode");
+            imageElement.style.display = "block";
+            updateImage();
+        }
+    }
+
+    function loadAllPages() {
+        readerContainer.innerHTML = "<h2>Jujutsu Kaisen - Chapter 1</h2>";
+
+        for (let i = 1; i <= totalPages; i++) {
+            const img = document.createElement("img");
+            img.src = `manga/jujutsu-kaisen/${chapter}/${i}.jpeg`;
+            readerContainer.appendChild(img);
+        }
+    }
+
+    document.addEventListener("keydown", function (e) {
+        if (!verticalMode) {
+            if (e.key === "ArrowRight") nextPage();
+            if (e.key === "ArrowLeft") prevPage();
+        }
+    });
+
+    let hideTimeout;
+
+    document.addEventListener("mousemove", function () {
+        controls.classList.remove("hidden");
+
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            controls.classList.add("hidden");
+        }, 2000);
+    });
+
+    updateImage();
 </script>
 
 </body>
