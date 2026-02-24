@@ -166,21 +166,36 @@ function toggleVertical() {
     }
 }
 
+function toggleVertical() {
+    verticalMode = !verticalMode;
+
+    if (verticalMode) {
+        imageElement.style.display = "none";
+        loadAllPages();
+    } else {
+        removeVerticalPages();
+        imageElement.style.display = "block";
+        updateImage();
+    }
+}
+
 function loadAllPages() {
     for (let i = 1; i <= totalPages; i++) {
         const img = document.createElement("img");
         img.src = `manga/${manga}/${chapter}/${i}.jpeg`;
         img.classList.add("vertical-page");
+        img.style.display = "block";
+        img.style.margin = "20px auto";
+        img.style.maxWidth = "800px";
+
         readerContainer.appendChild(img);
     }
 }
 
-document.addEventListener("keydown", function (e) {
-    if (!verticalMode) {
-        if (e.key === "ArrowRight") nextPage();
-        if (e.key === "ArrowLeft") prevPage();
-    }
-});
+function removeVerticalPages() {
+    const allImages = document.querySelectorAll(".vertical-page");
+    allImages.forEach(img => img.remove());
+}
 
 let hideTimeout;
 
@@ -220,6 +235,7 @@ updateImage();
 
 </body>
 </html>
+
 
 
 
