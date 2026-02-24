@@ -136,7 +136,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const manga = urlParams.get("manga") || "jujutsu-kaisen";
 const chapter = urlParams.get("chapter") || "chapter-1";
 
-let totalPages = 53;
+const pageCounts = {
+    "chapter-1": 53,
+    "chapter-2": 25
+};
+
+let totalPages = pageCounts[chapter] || 1;
 let currentPage = 1;
 let verticalMode = false;
 
@@ -184,7 +189,7 @@ function toggleVertical() {
 }
 
 function loadAllPages() {
-    removeVerticalPages(); // clean first
+    removeVerticalPages();
 
     for (let i = 1; i <= totalPages; i++) {
         const img = document.createElement("img");
@@ -194,68 +199,11 @@ function loadAllPages() {
         img.style.margin = "20px auto";
         img.style.maxWidth = "800px";
 
-        readerContainer.appendChild(img);
-    }
-
-    // 🔥 Add bottom navigation AFTER all images
-    const bottomNav = document.createElement("div");
-    bottomNav.classList.add("bottom-navigation");
-
-    bottomNav.innerHTML = `
-        <button onclick="prevPage()">⬅ Previous</button>
-        <button onclick="nextPage()">Next ➡</button>
-    `;
-
-    readerContainer.appendChild(bottomNav);
-}
-
-function removeVerticalPages() {
-    const allImages = document.querySelectorAll(".vertical-page");
-    allImages.forEach(img => img.remove());
-
-    const bottomNav = document.querySelector(".bottom-navigation");
-    if (bottomNav) bottomNav.remove();
-}
-
-let hideTimeout;
-
-document.addEventListener("mousemove", function () {
-    controls.classList.remove("hidden");
-
-    clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-        controls.classList.add("hidden");
-    }, 2000);
-});
-
-function populateChapters(totalChapters) {
-    const select = document.getElementById("chapterSelect");
-    select.innerHTML = "";
-
-    for (let i = 1; i <= totalChapters; i++) {
-        let option = document.createElement("option");
-        option.value = "chapter-" + i;
-        option.textContent = "Chapter " + i;
-
-        if (option.value === chapter) {
-            option.selected = true;
-        }
-
-        select.appendChild(option);
-    }
-}
-
-populateChapters(5);
-
-document.getElementById("chapterSelect").addEventListener("change", function () {
-    window.location.href = `reader.html?manga=${manga}&chapter=${this.value}`;
-});
-
-updateImage();
 </script>
 
 </body>
 </html>
+
 
 
 
