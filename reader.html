@@ -167,6 +167,21 @@ function updateImage() {
 }
 
 function nextPage() {
+
+    if (verticalMode) {
+        // Go to next chapter
+        const currentNumber = parseInt(chapter.split("-")[1]);
+        const nextChapter = "chapter-" + (currentNumber + 1);
+
+        if (pageCounts[nextChapter]) {
+            window.location.href =
+                `reader.html?manga=${manga}&chapter=${nextChapter}`;
+        }
+
+        return;
+    }
+
+    // Normal page mode
     if (currentPage < totalPages) {
         currentPage++;
         updateImage();
@@ -174,6 +189,21 @@ function nextPage() {
 }
 
 function prevPage() {
+
+    if (verticalMode) {
+        // Go to previous chapter
+        const currentNumber = parseInt(chapter.split("-")[1]);
+        const prevChapter = "chapter-" + (currentNumber - 1);
+
+        if (pageCounts[prevChapter]) {
+            window.location.href =
+                `reader.html?manga=${manga}&chapter=${prevChapter}`;
+        }
+
+        return;
+    }
+
+    // Normal page mode
     if (currentPage > 1) {
         currentPage--;
         updateImage();
@@ -256,6 +286,7 @@ updateImage();
 
 </body>
 </html>
+
 
 
 
