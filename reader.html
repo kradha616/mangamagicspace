@@ -177,21 +177,6 @@ function toggleVertical() {
         pageInfo.textContent = "";
         loadAllPages();
     } else {
-        const allImages = document.querySelectorAll(".vertical-page");
-        allImages.forEach(img => img.remove());
-
-        imageElement.style.display = "block";
-        updateImage();
-    }
-}
-
-function toggleVertical() {
-    verticalMode = !verticalMode;
-
-    if (verticalMode) {
-        imageElement.style.display = "none";
-        loadAllPages();
-    } else {
         removeVerticalPages();
         imageElement.style.display = "block";
         updateImage();
@@ -199,6 +184,8 @@ function toggleVertical() {
 }
 
 function loadAllPages() {
+    removeVerticalPages(); // clean first
+
     for (let i = 1; i <= totalPages; i++) {
         const img = document.createElement("img");
         img.src = `manga/${manga}/${chapter}/${i}.jpeg`;
@@ -209,11 +196,25 @@ function loadAllPages() {
 
         readerContainer.appendChild(img);
     }
+
+    // 🔥 Add bottom navigation AFTER all images
+    const bottomNav = document.createElement("div");
+    bottomNav.classList.add("bottom-navigation");
+
+    bottomNav.innerHTML = `
+        <button onclick="prevPage()">⬅ Previous</button>
+        <button onclick="nextPage()">Next ➡</button>
+    `;
+
+    readerContainer.appendChild(bottomNav);
 }
 
 function removeVerticalPages() {
     const allImages = document.querySelectorAll(".vertical-page");
     allImages.forEach(img => img.remove());
+
+    const bottomNav = document.querySelector(".bottom-navigation");
+    if (bottomNav) bottomNav.remove();
 }
 
 let hideTimeout;
@@ -229,6 +230,7 @@ document.addEventListener("mousemove", function () {
 
 function populateChapters(totalChapters) {
     const select = document.getElementById("chapterSelect");
+    select.innerHTML = "";
 
     for (let i = 1; i <= totalChapters; i++) {
         let option = document.createElement("option");
@@ -254,6 +256,7 @@ updateImage();
 
 </body>
 </html>
+
 
 
 
