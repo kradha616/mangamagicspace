@@ -56,35 +56,84 @@ body {
 }
 
 /* Manga Grid */
+/* Manga Grid */
 .manga-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 25px;
-    padding: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 50px;
 }
 
+/* Manga Card */
 .manga-card {
-    background: #1e293b;
-    border-radius: 12px;
-    padding: 15px;
-    transition: 0.3s;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
 }
 
+/* Lift + Shadow */
 .manga-card:hover {
-    transform: translateY(-5px);
-    background: #334155;
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
-.manga-card img {
+/* Image Container */
+.image-container {
+    position: relative;
     width: 100%;
-    height: 420px;       /* uniform height */
-    object-fit: cover;   /* crops neatly */
-    border-radius: 8px;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 14px;
 }
 
-.manga-card {
-    overflow: hidden;
+/* Image */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Zoom Effect */
+.manga-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Dark Gradient Overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+    z-index: 1;
+}
+
+/* Title On Image */
+.title {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* NEW Badge */
+.badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #f97316;
+    color: white;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 20px;
+    z-index: 2;
 }
 
 
