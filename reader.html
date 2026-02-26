@@ -138,12 +138,18 @@ const chapter = urlParams.get("chapter") || "chapter-1";
 
 /* ✅ PAGE COUNTS GO HERE */
 const pageCounts = {
-    "chapter-1": 53,
-    "chapter-2": 25,
-    "chapter-3": 23
+    "jujutsu-kaisen": {
+        "chapter-1": 53,
+        "chapter-2": 25,
+        "chapter-3": 21
+    },
+    "attack-on-titan": {
+        "chapter-1": 58,
+        "chapter-2": 38
+    }
 };
 
-let totalPages = pageCounts[chapter];
+let totalPages = pageCounts[manga]?.[chapter] || 1;
 
 if (!totalPages) {
     totalPages = 1;
@@ -287,6 +293,7 @@ updateImage();
 
 </body>
 </html>
+
 
 
 
