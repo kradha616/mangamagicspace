@@ -90,9 +90,11 @@ body::after {
 /* Manga Grid */
 .manga-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 25px;
     padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Manga Card */
@@ -107,10 +109,8 @@ body::after {
 }
 
 .manga-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 
-        0 0 10px rgba(249, 115, 22, 0.5),
-        0 0 25px rgba(249, 115, 22, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
 }
 
 .ripple {
@@ -132,17 +132,16 @@ body::after {
 .image-container {
     position: relative;
     width: 100%;
-    aspect-ratio: 2 / 3;   /* Perfect manga ratio */
+    height: 300px;   /* smaller like original */
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 10px;
 }
-
 /* Image */
 .image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.4s ease;
 }
 
 /* Zoom Effect */
