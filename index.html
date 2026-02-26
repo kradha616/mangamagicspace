@@ -24,16 +24,23 @@
     <p>Your ultimate manga reading experience.</p>
 </div>
 
-<div class="manga-grid">
-    <div class="manga-card">
+<div class="manga-card">
+    <div class="image-container">
         <img src="https://via.placeholder.com/200x300">
-        <h3>Naruto</h3>
+        <div class="overlay"></div>
+        <div class="title">Naruto</div>
+        <div class="badge">NEW</div>
     </div>
+</div>
 
-    <div class="manga-card">
+   <div class="manga-card">
+    <div class="image-container">
         <img src="https://via.placeholder.com/200x300">
-        <h3>One Piece</h3>
+        <div class="overlay"></div>
+        <div class="title">One Piece</div>
+        <div class="badge">NEW</div>
     </div>
+</div>
 
    <div class="manga-card">
     <a href="reader.html?manga=attack-on-titan&chapter=chapter-1">
@@ -60,6 +67,8 @@
 const cards = document.querySelectorAll(".manga-card");
 
 cards.forEach(card => {
+
+    // 🔥 Parallax Tilt Effect
     card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -82,10 +91,29 @@ cards.forEach(card => {
     card.addEventListener("mouseleave", () => {
         card.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
     });
+
+    // 💥 Ripple Click Effect
+    card.addEventListener("click", function (e) {
+        const circle = document.createElement("span");
+        circle.classList.add("ripple");
+
+        const rect = card.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+
+        circle.style.width = circle.style.height = size + "px";
+        circle.style.left = e.clientX - rect.left - size / 2 + "px";
+        circle.style.top = e.clientY - rect.top - size / 2 + "px";
+
+        card.appendChild(circle);
+
+        setTimeout(() => circle.remove(), 600);
+    });
+
 });
 </script>
 </body>
 </html>
+
 
 
 
