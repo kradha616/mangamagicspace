@@ -8,10 +8,24 @@
 
 /* Body */
 body {
-    background-color: #0f172a;
+    background: radial-gradient(ellipse at bottom, #0f172a 0%, #020617 60%, #000000 100%);
     color: #f1f5f9;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
 }
 
+body::after {
+    content: "";
+    position: fixed;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.2), transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.2), transparent 60%);
+    z-index: -1;
+}
 /* Navbar */
 .navbar {
     display: flex;
@@ -184,6 +198,33 @@ body {
     z-index: 100;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 70% 60%, white, transparent),
+        radial-gradient(1px 1px at 40% 80%, white, transparent),
+        radial-gradient(1px 1px at 90% 20%, white, transparent),
+        radial-gradient(2px 2px at 10% 70%, white, transparent);
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    animation: starMove 120s linear infinite;
+    opacity: 0.3;
+    z-index: -1;
+}
 
+@keyframes starMove {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(-500px, -500px);
+    }
+}
 
 
