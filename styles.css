@@ -78,7 +78,13 @@ body {
 
 .manga-card img {
     width: 100%;
+    height: 420px;       /* uniform height */
+    object-fit: cover;   /* crops neatly */
     border-radius: 8px;
+}
+
+.manga-card {
+    overflow: hidden;
 }
 
 
