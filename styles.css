@@ -164,8 +164,11 @@ body::after {
     width: 100%;
     aspect-ratio: 2 / 3;
     height: auto;   /* smaller like original */
-    overflow: hidden;
+    overflow: visible;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /* Image */
 .image-container img {
