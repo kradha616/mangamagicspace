@@ -113,7 +113,7 @@
 
 <div class="reader-container" id="readerContainer">
 
-    <h2>Jujutsu Kaisen - Chapter 1</h2>
+   <h2 id="chapterTitle"></h2>
 
     
     <br><br>
@@ -146,7 +146,10 @@ const pageCounts = {
     "attack-on-titan": {
         "chapter-1": 58,
         "chapter-2": 38
-    }
+    },
+    "naruto": {
+    "chapter-1": 57
+}
 };
 
 let totalPages = pageCounts[manga]?.[chapter] || 1;
@@ -172,6 +175,10 @@ function updateImage() {
         imageElement.style.opacity = 1;
     }, 150);
 }
+    document.getElementById("chapterTitle").textContent =
+    manga.replace("-", " ").replace(/\b\w/g, c => c.toUpperCase()) +
+    " - " +
+    chapter.replace("-", " ").replace(/\b\w/g, c => c.toUpperCase());
 
 function nextPage() {
 
