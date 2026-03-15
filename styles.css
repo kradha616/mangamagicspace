@@ -191,6 +191,7 @@ body::after {
     height: 60%;
     background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
     z-index: 1;
+    transition: opacity 0.3s ease;
 }
 
 /* Title On Image */
