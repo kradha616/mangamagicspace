@@ -174,10 +174,10 @@ body::after {
 .image-container img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.4s ease;
 }
-
 /* Zoom Effect */
 .manga-card:hover img {
     transform: scale(1.1);
