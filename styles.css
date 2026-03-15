@@ -191,7 +191,13 @@ body::after {
     height: 60%;
     background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
     z-index: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease;
+}
+.manga-card:hover .overlay {
+    opacity: 0;
+}
+.manga-card:hover .title {
+    opacity: 0;
 }
 
 /* Title On Image */
