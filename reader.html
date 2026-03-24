@@ -179,9 +179,9 @@ function updateImage() {
     }, 150);
 }
     document.getElementById("chapterTitle").textContent =
-    manga.replace("-", " ").replace(/\b\w/g, c => c.toUpperCase()) +
+    manga.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase()) +
     " - " +
-    chapter.replace("-", " ").replace(/\b\w/g, c => c.toUpperCase());
+    chapter.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
 
 function nextPage() {
 
@@ -190,7 +190,7 @@ function nextPage() {
         const currentNumber = parseInt(chapter.split("-")[1]);
         const nextChapter = "chapter-" + (currentNumber + 1);
 
-        if (pageCounts[nextChapter]) {
+        if (pageCounts[manga]?.[nextChapter]) {
             window.location.href =
                 `reader.html?manga=${manga}&chapter=${nextChapter}`;
         }
@@ -212,7 +212,7 @@ function prevPage() {
         const currentNumber = parseInt(chapter.split("-")[1]);
         const prevChapter = "chapter-" + (currentNumber - 1);
 
-        if (pageCounts[prevChapter]) {
+        if (pageCounts[manga]?.[prevChapter]) {
             window.location.href =
                 `reader.html?manga=${manga}&chapter=${prevChapter}`;
         }
