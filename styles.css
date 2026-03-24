@@ -267,5 +267,19 @@ body::before {
         transform: translate(-500px, -500px);
     }
 }
+#themeToggle {
+    margin-left: 15px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #f97316;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#themeToggle:hover {
+    opacity: 0.85;
+}
 
 
