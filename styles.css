@@ -281,5 +281,54 @@ body::before {
 #themeToggle:hover {
     opacity: 0.85;
 }
+.slider{
+width:100%;
+height:400px;
+overflow:hidden;
+}
 
+.slider img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
 
+.login-box{
+width:320px;
+margin:100px auto;
+background:#1e293b;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+.login-box input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:none;
+border-radius:5px;
+}
+
+.login-box button{
+width:100%;
+padding:10px;
+background:#f97316;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+.history-container{
+padding:40px;
+text-align:center;
+}
+
+.history-card{
+background:#1e293b;
+padding:15px;
+margin:10px auto;
+width:300px;
+border-radius:8px;
+}
