@@ -136,6 +136,19 @@ const urlParams = new URLSearchParams(window.location.search);
 const manga = urlParams.get("manga") || "jujutsu-kaisen";
 const chapter = urlParams.get("chapter") || "chapter-1";
 
+/* ADD STEP 5 CODE HERE */
+const user = localStorage.getItem("loggedInUser");
+
+if(user){
+    let key = "history_" + user;
+    let history = JSON.parse(localStorage.getItem(key)) || [];
+
+    if(!history.includes(manga)){
+        history.push(manga);
+        localStorage.setItem(key, JSON.stringify(history));
+    }
+}
+
 /* ✅ PAGE COUNTS GO HERE */
 const pageCounts = {
     "jujutsu-kaisen": {
