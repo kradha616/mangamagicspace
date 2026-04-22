@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MangaMagicSpace</title>
 <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 <div class="navbar">
@@ -20,7 +23,9 @@
         <a href="index.html">Home</a>
         <a href="upload.html">Upload</a>
         <a href="history.html" id="historyLink">History</a>
-        <a href="#" id="logoutBtn">Logout</a>
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+        <a href="#" id="logoutBtn" style="display:none;">Logout</a>
         <button id="themeToggle">🌙</button>
     </div>
 
@@ -53,7 +58,7 @@
 <div class="manga-card">
 <a href="reader.html?manga=one-piece&chapter=chapter-1">
 <div class="image-container">
-<img src="manga/one-piece/cover.jpeg/cover.jpeg">
+<img src="manga/one-piece/cover.jpeg">
 <div class="overlay"></div>
 <div class="title">One Piece</div>
 </div>
@@ -83,6 +88,7 @@
 </div>
 
 <script>
+// Login state
 const user = localStorage.getItem("loggedInUser");
 
 if(user){
@@ -99,73 +105,60 @@ document.getElementById("logoutBtn").onclick = function(){
 };
 
 // Slider
-
 const slides = [
 {
-    image: "manga/slider/naruto-banner.jpg",
-    link: "reader.html?manga=naruto&chapter=chapter-1"
+image:"manga/slider/naruto-banner.jpg",
+link:"reader.html?manga=naruto&chapter=chapter-1"
 },
 {
-    image: "manga/slider/onepiece-banner.jpg",
-    link: "reader.html?manga=one-piece&chapter=chapter-1"
+image:"manga/slider/onepiece-banner.jpg",
+link:"reader.html?manga=one-piece&chapter=chapter-1"
 },
 {
-    image: "manga/slider/aot-banner.jpg",
-    link: "reader.html?manga=attack-on-titan&chapter=chapter-1"
+image:"manga/slider/aot-banner.jpg",
+link:"reader.html?manga=attack-on-titan&chapter=chapter-1"
 },
 {
-    image: "manga/slider/jjk-banner.jpg",
-    link: "reader.html?manga=jujutsu-kaisen&chapter=chapter-1"
+image:"manga/slider/jjk-banner.jpg",
+link:"reader.html?manga=jujutsu-kaisen&chapter=chapter-1"
 }
 ];
 
 let i = 0;
-
 const sliderImage = document.getElementById("sliderImage");
 const sliderLink = document.getElementById("sliderLink");
 
-setInterval(function () {
-    i++;
-    if (i >= slides.length) {
-        i = 0;
-    }
-
+setInterval(() => {
+    i = (i + 1) % slides.length;
     sliderImage.src = slides[i].image;
     sliderLink.href = slides[i].link;
-
 }, 3000);
 
-   // Theme Toggle Fix
+// Theme Toggle
 const themeBtn = document.getElementById("themeToggle");
 
-if(themeBtn){
-
-    if(localStorage.getItem("theme") === "light"){
-        document.body.classList.add("light-mode");
-        themeBtn.innerText = "☀️";
-    }
-
-    themeBtn.addEventListener("click", function(){
-
-        document.body.classList.toggle("light-mode");
-
-        if(document.body.classList.contains("light-mode")){
-            localStorage.setItem("theme", "light");
-            themeBtn.innerText = "☀️";
-        } else {
-            localStorage.setItem("theme", "dark");
-            themeBtn.innerText = "🌙";
-        }
-
-    });
-
+if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light-mode");
+    themeBtn.innerText = "☀️";
 }
 
-    // Hamburger Menu
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+
+    if(document.body.classList.contains("light-mode")){
+        localStorage.setItem("theme", "light");
+        themeBtn.innerText = "☀️";
+    } else {
+        localStorage.setItem("theme", "dark");
+        themeBtn.innerText = "🌙";
+    }
+});
+
+// Hamburger Menu
 const menuBtn = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
-menuBtn.addEventListener("click", function(){
+menuBtn.addEventListener("click", () => {
     navMenu.classList.toggle("show");
 });
 </script>
