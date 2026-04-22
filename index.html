@@ -24,7 +24,9 @@
 
 <!-- Slider -->
 <div class="slider">
-    <img id="sliderImage" src="manga/slider/naruto-banner.jpg">
+    <a id="sliderLink" href="reader.html?manga=naruto&chapter=chapter-1">
+        <img id="sliderImage" src="manga/slider/naruto-banner.jpg">
+    </a>
 </div>
 
 <div class="hero">
@@ -93,23 +95,42 @@ document.getElementById("logoutBtn").onclick = function(){
 };
 
 // Slider
-const images = [
-"manga/slider/naruto-banner.jpg",
-"manga/slider/onepiece-banner.jpg",
-"manga/slider/aot-banner.jpg",
-"manga/slider/jjk-banner.jpg"
+<script>
+const slides = [
+{
+    image: "manga/slider/naruto-banner.jpg",
+    link: "reader.html?manga=naruto&chapter=chapter-1"
+},
+{
+    image: "manga/slider/onepiece-banner.jpg",
+    link: "reader.html?manga=one-piece&chapter=chapter-1"
+},
+{
+    image: "manga/slider/aot-banner.jpg",
+    link: "reader.html?manga=attack-on-titan&chapter=chapter-1"
+},
+{
+    image: "manga/slider/jjk-banner.jpg",
+    link: "reader.html?manga=jujutsu-kaisen&chapter=chapter-1"
+}
 ];
 
 let i = 0;
-const slider = document.getElementById("sliderImage");
+
+const sliderImage = document.getElementById("sliderImage");
+const sliderLink = document.getElementById("sliderLink");
 
 setInterval(function () {
     i++;
-    if (i >= images.length) {
+    if (i >= slides.length) {
         i = 0;
     }
-    slider.src = images[i];
+
+    sliderImage.src = slides[i].image;
+    sliderLink.href = slides[i].link;
+
 }, 3000);
+</script>
 </script>
 
 </body>
