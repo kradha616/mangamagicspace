@@ -131,6 +131,26 @@ setInterval(function () {
     sliderLink.href = slides[i].link;
 
 }, 3000);
+
+    // Theme Toggle
+const themeBtn = document.getElementById("themeToggle");
+
+if(localStorage.getItem("theme") === "light"){
+    document.body.classList.add("light-mode");
+    themeBtn.innerText = "☀️";
+}
+
+themeBtn.onclick = function(){
+    document.body.classList.toggle("light-mode");
+
+    if(document.body.classList.contains("light-mode")){
+        localStorage.setItem("theme", "light");
+        themeBtn.innerText = "☀️";
+    }else{
+        localStorage.setItem("theme", "dark");
+        themeBtn.innerText = "🌙";
+    }
+};
 </script>
 
 </body>
