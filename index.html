@@ -132,25 +132,31 @@ setInterval(function () {
 
 }, 3000);
 
-    // Theme Toggle
+   // Theme Toggle Fix
 const themeBtn = document.getElementById("themeToggle");
 
-if(localStorage.getItem("theme") === "light"){
-    document.body.classList.add("light-mode");
-    themeBtn.innerText = "☀️";
-}
+if(themeBtn){
 
-themeBtn.onclick = function(){
-    document.body.classList.toggle("light-mode");
-
-    if(document.body.classList.contains("light-mode")){
-        localStorage.setItem("theme", "light");
+    if(localStorage.getItem("theme") === "light"){
+        document.body.classList.add("light-mode");
         themeBtn.innerText = "☀️";
-    }else{
-        localStorage.setItem("theme", "dark");
-        themeBtn.innerText = "🌙";
     }
-};
+
+    themeBtn.addEventListener("click", function(){
+
+        document.body.classList.toggle("light-mode");
+
+        if(document.body.classList.contains("light-mode")){
+            localStorage.setItem("theme", "light");
+            themeBtn.innerText = "☀️";
+        } else {
+            localStorage.setItem("theme", "dark");
+            themeBtn.innerText = "🌙";
+        }
+
+    });
+
+}
 </script>
 
 </body>
