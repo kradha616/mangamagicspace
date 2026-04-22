@@ -1,126 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MangaMagicSpace</title>
-    <link rel="stylesheet" href="styles.css">
+<title>MangaMagicSpace</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <div class="navbar">
-   <div class="logo">
-    <a href="index.html">MangaMagicSpace</a>
-</div>
+    <div class="logo"><a href="index.html">MangaMagicSpace</a></div>
 
     <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="upload.html">Upload</a>
-        <a href="login.html">Login</a>
-        <a href="history.html">History</a>
 
-        <!-- ADD BUTTON HERE -->
-        <button id="themeToggle">🌙</button>
+        <a href="history.html" id="historyLink">History</a>
+
+        <a href="login.html" id="loginLink">Login</a>
+        <a href="signup.html" id="signupLink">Sign Up</a>
+
+        <a href="#" id="logoutBtn" style="display:none;">Logout</a>
     </div>
 </div>
+
+<!-- Slider -->
+<div class="slider">
+    <img id="sliderImage" src="manga/naruto/cover.jpeg">
+</div>
+
 <div class="hero">
     <h1>Read. Upload. Explore Manga.</h1>
     <p>Your ultimate manga reading experience.</p>
 </div>
-    <div class="manga-grid">
+
+<div class="manga-grid">
 
 <div class="manga-card">
 <a href="reader.html?manga=naruto&chapter=chapter-1">
-    <div class="image-container">
-        <img src="manga/naruto/cover.jpeg">
-        <div class="overlay"></div>
-        <div class="title">Naruto</div>
-        <div class="badge">NEW</div>
-    </div>
+<div class="image-container">
+<img src="manga/naruto/cover.jpeg">
+<div class="overlay"></div>
+<div class="title">Naruto</div>
+</div>
 </a>
 </div>
 
-   <div class="manga-card">
+<div class="manga-card">
 <a href="reader.html?manga=one-piece&chapter=chapter-1">
-    <div class="image-container">
-        <img src="manga/one-piece/cover.jpeg/cover.jpeg">
-        <div class="overlay"></div>
-        <div class="title">One Piece</div>
-        <div class="badge">NEW</div>
-    </div>
+<div class="image-container">
+<img src="manga/one-piece/cover.jpeg">
+<div class="overlay"></div>
+<div class="title">One Piece</div>
+</div>
 </a>
 </div>
 
-   <div class="manga-card">
-    <a href="reader.html?manga=attack-on-titan&chapter=chapter-1">
-        <div class="image-container">
-            <img src="manga/attack-on-titan/cover.jpeg">
-            <div class="overlay"></div>
-            <div class="title">Attack on Titan</div>
-            <div class="badge">NEW</div>
-        </div>
-    </a>
+<div class="manga-card">
+<a href="reader.html?manga=attack-on-titan&chapter=chapter-1">
+<div class="image-container">
+<img src="manga/attack-on-titan/cover.jpeg">
+<div class="overlay"></div>
+<div class="title">Attack on Titan</div>
 </div>
-        
-    <div class="manga-card">
-    <a href="reader.html?manga=jujutsu-kaisen&chapter=chapter-1">
-        <div class="image-container">
-        <img src="manga/jujutsu-kaisen/chapter-1/1.jpeg">
-            <div class="overlay"></div>
-            <div class="title">Jujutsu Kaisen</div>
-            <div class="badge">NEW</div>
-        </div>
-    </a>
+</a>
 </div>
-        </div>
+
+<div class="manga-card">
+<a href="reader.html?manga=jujutsu-kaisen&chapter=chapter-1">
+<div class="image-container">
+<img src="manga/jujutsu-kaisen/chapter-1/1.jpeg">
+<div class="overlay"></div>
+<div class="title">Jujutsu Kaisen</div>
+</div>
+</a>
+</div>
+
+</div>
+
 <script>
-const cards = document.querySelectorAll(".manga-card");
+const user = localStorage.getItem("loggedInUser");
 
-cards.forEach(card => {
+if(user){
+    document.getElementById("loginLink").style.display = "none";
+    document.getElementById("signupLink").style.display = "none";
+    document.getElementById("logoutBtn").style.display = "inline";
+}else{
+    document.getElementById("historyLink").style.display = "none";
+}
 
-    // 🔥 Parallax Tilt Effect
-    card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+document.getElementById("logoutBtn").onclick = function(){
+    localStorage.removeItem("loggedInUser");
+    location.reload();
+};
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+// Slider
+const images = [
+"manga/naruto/cover.jpeg",
+"manga/one-piece/cover.jpeg",
+"manga/attack-on-titan/cover.jpeg",
+"manga/jujutsu-kaisen/chapter-1/1.jpeg"
+];
 
-        const rotateX = -(y - centerY) / 20;
-        const rotateY = (x - centerX) / 20;
-
-        card.style.transform = `
-            perspective(1000px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            translateY(-8px)
-        `;
-    });
-
-    card.addEventListener("mouseleave", () => {
-        card.style.transform = "perspective(1000px) rotateX(0) rotateY(0)";
-    });
-
-    // 💥 Ripple Click Effect
-    card.addEventListener("click", function (e) {
-        const circle = document.createElement("span");
-        circle.classList.add("ripple");
-
-        const rect = card.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-
-        circle.style.width = circle.style.height = size + "px";
-        circle.style.left = e.clientX - rect.left - size / 2 + "px";
-        circle.style.top = e.clientY - rect.top - size / 2 + "px";
-
-        card.appendChild(circle);
-
-        setTimeout(() => circle.remove(), 600);
-    });
-
-});
-    
+let i = 0;
+setInterval(()=>{
+    i = (i+1)%images.length;
+    document.getElementById("sliderImage").src = images[i];
+},3000);
 </script>
+
 </body>
 </html>
 
