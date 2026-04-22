@@ -94,17 +94,22 @@ document.getElementById("logoutBtn").onclick = function(){
 
 // Slider
 const images = [
-"manga/slider/aot-banner.jpg",
-"manga/slider/jjk-banner.jpg"
 "manga/slider/naruto-banner.jpg",
 "manga/slider/onepiece-banner.jpg",
+"manga/slider/aot-banner.jpg",
+"manga/slider/jjk-banner.jpg"
 ];
 
 let i = 0;
-setInterval(()=>{
-    i = (i+1)%images.length;
-    document.getElementById("sliderImage").src = images[i];
-},3000);
+const slider = document.getElementById("sliderImage");
+
+setInterval(function () {
+    i++;
+    if (i >= images.length) {
+        i = 0;
+    }
+    slider.src = images[i];
+}, 3000);
 </script>
 
 </body>
