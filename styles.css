@@ -470,3 +470,49 @@ body{
     bottom:8px;
 }
 }
+
+/* Hamburger Button */
+.menu-toggle{
+    display:none;
+    background:#f97316;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    font-size:20px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* Mobile Menu */
+@media screen and (max-width:768px){
+
+.menu-toggle{
+    display:block;
+}
+
+.navbar{
+    flex-wrap:wrap;
+    padding:12px;
+}
+
+.nav-links{
+    display:none;
+    flex-direction:column;
+    width:100%;
+    background:#1e293b;
+    margin-top:10px;
+    padding:10px;
+    border-radius:10px;
+    gap:10px;
+}
+
+.nav-links.show{
+    display:flex;
+}
+
+.nav-links a,
+#themeToggle{
+    width:100%;
+    text-align:center;
+}
+}
