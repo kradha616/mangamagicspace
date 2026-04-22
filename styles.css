@@ -342,3 +342,51 @@ border-radius:8px;
     height:100%;
     cursor:pointer;
 }
+/* Theme Toggle Button */
+#themeToggle{
+    margin-left:15px;
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    background:#f97316;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+#themeToggle:hover{
+    opacity:0.85;
+}
+
+/* Light Mode */
+body.light-mode{
+    background:#f8fafc;
+    color:#111827;
+}
+
+body.light-mode .navbar{
+    background:#ffffff;
+}
+
+body.light-mode .nav-links a{
+    color:#111827;
+}
+
+body.light-mode .hero p{
+    color:#374151;
+}
+
+body.light-mode .manga-card{
+    background:#ffffff;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+}
+
+body.light-mode .title{
+    color:white;
+}
+
+body.light-mode .login-box,
+body.light-mode .history-card{
+    background:#ffffff;
+    color:#111827;
+}
