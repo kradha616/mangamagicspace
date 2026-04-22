@@ -390,3 +390,72 @@ body.light-mode .history-card{
     background:#ffffff;
     color:#111827;
 }
+
+@media (max-width: 768px){
+
+/* Navbar */
+.navbar{
+    padding:12px 15px;
+    flex-direction: column;
+    gap:10px;
+}
+
+.logo{
+    font-size:22px;
+}
+
+.nav-links{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+}
+
+.nav-links a{
+    margin-left:0;
+    font-size:14px;
+}
+
+/* Slider */
+.slider{
+    height:220px;
+    border-radius:10px;
+}
+
+/* Hero */
+.hero{
+    padding:50px 15px 30px;
+}
+
+.hero h1{
+    font-size:34px;
+    line-height:1.2;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+/* Manga Grid */
+.manga-grid{
+    grid-template-columns: repeat(2,1fr);
+    gap:15px;
+    padding:20px;
+}
+
+.manga-card{
+    padding:10px;
+}
+
+.title{
+    font-size:16px;
+    left:10px;
+    bottom:10px;
+}
+
+/* Theme Button */
+#themeToggle{
+    padding:6px 10px;
+    font-size:14px;
+}
+}
