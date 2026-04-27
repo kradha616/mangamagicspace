@@ -550,3 +550,9 @@ body{
     z-index:999;
 }
 }
+
+.logo img{
+    height:60px;
+    width:auto;
+    display:block;
+}
